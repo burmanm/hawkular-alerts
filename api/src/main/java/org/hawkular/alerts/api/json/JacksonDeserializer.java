@@ -462,6 +462,9 @@ public class JacksonDeserializer {
                     if (node.get("expression") != null) {
                         evCondition.setExpression(node.get("expression").textValue());
                     }
+                    if (node.get("expr") != null) {
+                        evCondition.setExpr(node.get("expr").textValue());
+                    }
                 } catch (Exception e) {
                     throw new ConditionException(e);
                 }

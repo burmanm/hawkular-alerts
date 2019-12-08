@@ -23,6 +23,10 @@ import org.hawkular.alerts.api.model.condition.EventCondition;
 import org.hawkular.alerts.api.model.event.Event;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Jay Shaughnessy
  * @author Lucas Ponce
@@ -183,4 +187,45 @@ public class EventConditionTest {
         assertFalse(condition.match(bpmEvent2));
     }
 
+    @Test
+    public void testFacts() {
+        EventCondition condition = new EventCondition("tenant", "trigger-1", "app.war",
+                "facts.server == 'MyServer', facts.insanity.mylife == 'gone'");
+
+        Event event1 = new Event();
+        Map<String, Object> factsMap = new HashMap<>();
+        Map<String, String> insanityMap = new HashMap<>();
+        insanityMap.put("mylife", "gone");
+        factsMap.put("insanity", insanityMap);
+        factsMap.put("server", "MyServer");
+        event1.setFacts(factsMap);
+
+        assertTrue(condition.match(event1));
+
+        EventCondition condition2 = new EventCondition("tenant", "trigger-1", "app.war",
+                "facts.server == 'MyServer', facts.insanity.mylife == 'gone', facts.this.could.go.deep == 'no'");
+
+        assertFalse(condition2.match(event1));
+    }
+
+    @Test
+    public void testParsing() {
+        String first = "key";
+        String second = "key.anotherkey";
+        String third = "key.another.yetanother";
+        String fourth = "key.another.yetanother.still";
+
+        System.out.println(Arrays.toString(first.split("\\.", 2)));
+        System.out.println(Arrays.toString(second.split("\\.", 2)));
+        System.out.println(Arrays.toString(third.split("\\.", 2)));
+
+        String[] subMap = fourth.split("\\.", 2);
+
+        while(subMap.length > 1) {
+            subMap = subMap[1].split("\\.", 2);
+            System.out.printf("Checking key: %s\n", subMap[0]);
+        }
+
+        System.out.printf("Ending key: %s\n", subMap[0]);
+    }
 }

@@ -162,7 +162,7 @@ public class DroolsRulesEngineImpl implements RulesEngine {
         int fireCycle = 0;
         long startFiring = System.currentTimeMillis();
         while (!pendingData.isEmpty() || !pendingEvents.isEmpty()) {
-            log.debugf("Firing rules... PendingData [%s] PendingEvents [%s]", initialPendingData,
+            log.infof("Firing rules... PendingData [%s] PendingEvents [%s]", initialPendingData,
                     initialPendingEvents);
 
             batchData();
@@ -175,6 +175,11 @@ public class DroolsRulesEngineImpl implements RulesEngine {
                     log.infof("Fact: %s", o);
                 }
 //            }
+
+            for (Object object : kSession.getObjects()) {
+                log.infof("Object: %s", object);
+            }
+
 
             kSession.addEventListener(new CepEngineImpl.CepRuleRuntimeEventListener());
                 kSession.addEventListener(new CepEngineImpl.CepAgendaEventListener());

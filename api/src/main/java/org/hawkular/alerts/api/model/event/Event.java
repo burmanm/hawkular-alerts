@@ -173,6 +173,9 @@ public class Event implements Comparable<Event>, Serializable {
     @Thin
     private List<Set<ConditionEval>> evalSets;
 
+    @JsonInclude(Include.NON_EMPTY)
+    private Map<String, Object> facts;
+
     public Event() {
         // for json assembly
         this(null, (String) null, null, null);
@@ -270,6 +273,10 @@ public class Event implements Comparable<Event>, Serializable {
         this.category = event.getCategory();
         this.text = event.getText();
         this.tags = new HashMap<>(event.getTags());
+        this.facts = new HashMap<>();
+        if (event.getFacts() != null) {
+            this.facts.putAll(event.getFacts());
+        }
     }
 
     public Event(String tenantId, Trigger trigger, Dampening dampening, List<Set<ConditionEval>> evalSets) {
@@ -296,6 +303,7 @@ public class Event implements Comparable<Event>, Serializable {
             this.text = isEmpty(trigger.getDescription()) ? trigger.getName() : trigger.getDescription();
         }
         this.tags = trigger.getTags();
+        this.facts = new HashMap<>();
     }
 
     public String getEventType() {
@@ -367,6 +375,14 @@ public class Event implements Comparable<Event>, Serializable {
             tags = new HashMap<>();
         }
         return tags;
+    }
+
+    public Map<String, Object> getFacts() {
+        return facts;
+    }
+
+    public void setFacts(Map<String, Object> facts) {
+        this.facts = facts;
     }
 
     public void setTags(Map<String, String> tags) {

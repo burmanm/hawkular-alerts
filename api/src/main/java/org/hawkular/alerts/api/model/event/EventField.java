@@ -28,7 +28,8 @@ public enum EventField {
     CATEGORY ("category"),
     TEXT ("text"),
     CONTEXT ("context"),
-    TAGS ("tags");
+    TAGS ("tags"),
+    FACTS ("facts");
 
     private final String name;
 

@@ -20,6 +20,7 @@ import static org.hawkular.alerts.api.util.Util.isEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.hawkular.alerts.api.doc.DocModel;
@@ -28,7 +29,6 @@ import org.hawkular.alerts.api.model.event.Event;
 import org.hawkular.alerts.api.model.trigger.Mode;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * An <code>EventCondition</code> is used for condition evaluations over Event data using expressions.
@@ -123,8 +123,19 @@ public class EventCondition extends Condition {
     @DocModelProperty(description = "Event expression used for this condition.",
             position = 0,
             required = true)
-    @JsonInclude(Include.NON_NULL)
+    @JsonInclude
     private String expression;
+
+    public void setExpr(String expr) {
+        this.expr = expr;
+    }
+
+    public String getExpr() {
+        return expr;
+    }
+
+    @JsonInclude
+    private String expr;
 
     public EventCondition() {
         this("", "", Mode.FIRING, 1, 1, null, null);
@@ -180,6 +191,7 @@ public class EventCondition extends Condition {
         this.dataId = dataId;
         this.expression = expression;
         updateDisplayString();
+        System.out.println(toString());
     }
 
     public EventCondition(EventCondition condition) {
@@ -187,6 +199,8 @@ public class EventCondition extends Condition {
 
         this.dataId = condition.getDataId();
         this.expression = condition.getExpression();
+        this.expr = condition.getExpr();
+        System.out.println(toString());
     }
 
     public void setDataId(String dataId) {
@@ -212,8 +226,12 @@ public class EventCondition extends Condition {
         if (null == value) {
             return false;
         }
-        if (isEmpty(expression)) {
+        if (isEmpty(expression) && isEmpty(expr)) {
             return true;
+        }
+        if(expr != null) {
+            // Process expr first
+            return ExpressionParser.evaluateConditions(value.getFacts(), expr);
         }
         List<String> expressions = new ArrayList<>();
         int j = 0;
@@ -226,6 +244,7 @@ public class EventCondition extends Condition {
         }
         expressions.add(cleanComma.matcher(expression.substring(j).trim()).replaceAll(","));
         for (String expression : expressions) {
+            System.out.println("Matching " + expression);
             if (!processExpression(expression, value)) {
                 return false;
             }
@@ -239,6 +258,7 @@ public class EventCondition extends Condition {
     private static final String TEXT = "text";
     private static final String CATEGORY = "category";
     private static final String TAGS = "tags.";
+    private static final String FACTS = "facts.";
 
     private static final String EQ = "==";
     private static final String NON_EQ = "!=";
@@ -288,6 +308,42 @@ public class EventCondition extends Condition {
             // We get the key from tags.<key> string
             String key = eventField.substring(5);
             sEventValue = value.getTags().get(key);
+        } else if (eventField.startsWith(FACTS)) {
+            String key = eventField.substring(6);
+
+            // facts.key.value.value.etc
+            String[] subMap = key.split("\\.", 2);
+            Object innerValue = value.getFacts().get(subMap[0]);
+
+            while(subMap.length > 1) {
+                if(innerValue instanceof Map) {
+                    subMap = subMap[1].split("\\.", 2);
+                    innerValue = ((Map) innerValue).get(subMap[0]);
+                } else {
+                    break;
+                }
+            }
+
+            sEventValue = (String) innerValue;
+
+            // TODO Needs support for arrays and arrays of maps also
+
+            // TODO If arrayKey is integer, consider this as array
+//            int arrayPos = key.indexOf("[");
+//            if (arrayPos > -1) {
+//                String outerKey = key.substring(0, arrayPos);
+//                int endArrayPos = key.indexOf("]");
+//                System.out.printf("Key: %s, %d, %d\n", key, arrayPos, endArrayPos);
+//                String innerMapKey = key.substring(arrayPos+1, endArrayPos);
+//                Object innerValue = value.getFacts().get(outerKey);
+//                if (innerValue instanceof Map) {
+//                    Map<String, String> innerValueMap = (Map) innerValue;
+//                    sEventValue = innerValueMap.get(innerMapKey);
+//                    System.out.printf("%s sEventValue: %s\n", innerMapKey, sEventValue);
+//                }
+//            } else {
+//                sEventValue = (String) value.getFacts().get(key);
+//            }
         }
         if (sEventValue == null && lEventValue == null) {
             return false;
@@ -376,7 +432,8 @@ public class EventCondition extends Condition {
 
     @Override
     public void updateDisplayString() {
-        String s = String.format("%s matches [%s]", this.dataId, this.expression);
+        String cond = this.expression == null || this.expression.isEmpty() ? this.expr : this.expression;
+        String s = String.format("%s matches [%s]", this.dataId, cond);
         setDisplayString(s);
     }
 

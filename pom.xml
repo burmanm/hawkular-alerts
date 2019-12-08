@@ -87,7 +87,7 @@
     <version.io.vertx>3.4.1</version.io.vertx>
     <version.log4j>1.2.17</version.log4j>
     <version.maven-patch-plugin>1.2</version.maven-patch-plugin>
-    <version.org.antlr>4.6</version.org.antlr>
+    <version.org.antlr>4.7.2</version.org.antlr>
     <version.org.apache.commons.commons-math3>3.4.1</version.org.apache.commons.commons-math3>
     <version.org.apache.kafka>0.11.0.0</version.org.apache.kafka>
     <version.org.apache.httpcomponents.httpclient>4.5.2</version.org.apache.httpcomponents.httpclient>
@@ -350,26 +350,14 @@
         <xml.skip>true</xml.skip>
       </properties>
       <modules>
-        <module>alerters</module>
         <module>api</module>
+        <module>actions</module>
         <module>commons</module>
         <module>engine</module>
         <module>engine-extensions</module>
         <module>filter-api</module>
-        <module>itests</module>
-        <module>rest-handlers</module>
-        <module>dist</module>
-        <module>ui</module>
-      </modules>
-    </profile>
-
-    <profile>
-      <id>actions</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <modules>
-        <module>actions</module>
+<!--        <module>rest-handlers</module>-->
+<!--        <module>ui</module>-->
       </modules>
     </profile>
 
@@ -381,17 +369,14 @@
         <xml.skip>false</xml.skip>
       </properties>
       <modules>
-        <module>actions</module>
-        <module>alerters</module>
         <module>api</module>
+        <module>actions</module>
         <module>commons</module>
         <module>engine</module>
         <module>engine-extensions</module>
         <module>filter-api</module>
-        <module>itests</module>
-        <module>rest-handlers</module>
-        <module>dist</module>
-        <module>ui</module>
+<!--        <module>rest-handlers</module>-->
+<!--        <module>ui</module>-->
       </modules>
     </profile>
 

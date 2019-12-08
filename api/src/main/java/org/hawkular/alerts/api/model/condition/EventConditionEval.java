@@ -53,6 +53,7 @@ public class EventConditionEval extends ConditionEval {
 
     public EventConditionEval(EventCondition condition, Event value) {
         super(Type.EVENT, condition.match(value), value.getCtime(), value.getContext());
+        System.out.println("EventConditionEval: " + toString());
         this.condition = condition;
         this.value = value;
     }
@@ -95,8 +96,8 @@ public class EventConditionEval extends ConditionEval {
 
     @Override
     public void updateDisplayString() {
-        String s = String.format("Event: %s[%s] matches [%s]", condition.getDataId(), value,
-                condition.getExpression());
+        String cond = condition.getExpression() != null && condition.getExpression().length() > 0 ? condition.getExpression() : condition.getExpr();
+        String s = String.format("Event: %s[%s] matches [%s]", condition.getDataId(), value, cond);
         setDisplayString(s);
     }
 
