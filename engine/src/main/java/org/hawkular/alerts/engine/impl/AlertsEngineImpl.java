@@ -616,7 +616,7 @@ public class AlertsEngineImpl implements AlertsEngine, PartitionTriggerListener,
                 TreeSet<Data> newData = getAndClearPendingData();
                 TreeSet<Event> newEvents = getAndClearPendingEvents();
 
-                log.debugf("Executing rules engine on %s datums, %s events, %s dampening timeouts.", newData.size(),
+                log.infof("Executing rules engine on %s datums, %s events, %s dampening timeouts.", newData.size(),
                         newEvents.size(), numTimeouts);
 
                 try {

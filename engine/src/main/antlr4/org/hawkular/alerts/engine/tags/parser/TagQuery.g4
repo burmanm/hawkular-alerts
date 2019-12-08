@@ -92,13 +92,13 @@ NOTEQUAL: '!=';
 IN: I N;
 
 SIMPLETEXT  : [a-zA-Z_0-9.][\-a-zA-Z_0-9.]* ;
-COMPLEXTEXT :  '\'' (ESC | ~[\'\\])* '\'' ;
+COMPLEXTEXT :  '\'' (ESC | ~['\\])* '\'' ;
 
 WS  :   [ \t\n\r]+ -> skip ;
 
 
 //fragments
-fragment ESC : '\\' ([\'\\/bfnrt] | UNICODE | NEG_OP) ;
+fragment ESC : '\\' (['\\/bfnrt] | UNICODE | NEG_OP) ;
 fragment UNICODE : 'u' HEX HEX HEX HEX ;
 fragment HEX : [0-9a-fA-F] ;
 

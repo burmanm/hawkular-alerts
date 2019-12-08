@@ -1,4 +1,4 @@
-// Generated from org/hawkular/alerts/engine/tags/parser/TagQuery.g4 by ANTLR 4.6
+// Generated from org/hawkular/alerts/engine/tags/parser/TagQuery.g4 by ANTLR 4.7.2
 package org.hawkular.alerts.engine.tags.parser;
 
 /*

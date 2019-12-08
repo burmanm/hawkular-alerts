@@ -26,6 +26,7 @@ import org.drools.core.event.DebugRuleRuntimeEventListener;
 import org.hawkular.alerts.api.model.data.Data;
 import org.hawkular.alerts.api.model.event.Event;
 import org.hawkular.alerts.engine.service.RulesEngine;
+import org.hawkular.alerts.extensions.CepEngineImpl;
 import org.hawkular.commons.log.MsgLogger;
 import org.hawkular.commons.log.MsgLogging;
 import org.hawkular.commons.properties.HawkularProperties;
@@ -167,14 +168,16 @@ public class DroolsRulesEngineImpl implements RulesEngine {
             batchData();
             batchEvents();
 
-            if (log.isTraceEnabled()) {
-                log.tracef("Firing cycle [%s] - with these facts: ", fireCycle);
+//            if (log.isTraceEnabled()) {
+                log.infof("Firing cycle [%s] - with these facts: ", fireCycle);
                 for (FactHandle fact : kSession.getFactHandles()) {
                     Object o = kSession.getObject(fact);
-                    log.tracef("Fact: %s", o);
+                    log.infof("Fact: %s", o);
                 }
-            }
+//            }
 
+            kSession.addEventListener(new CepEngineImpl.CepRuleRuntimeEventListener());
+                kSession.addEventListener(new CepEngineImpl.CepAgendaEventListener());
             kSession.fireAllRules();
             fireCycle++;
         }
@@ -232,6 +235,7 @@ public class DroolsRulesEngineImpl implements RulesEngine {
             Event e = i.next();
             if (!e.same(previousEvent)) {
                 previousEvent = e;
+                System.out.println("Inserting event: " + e);
                 kSession.insert(e);
 
             } else {

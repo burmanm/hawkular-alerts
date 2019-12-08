@@ -68,6 +68,10 @@ public class IspnEvent implements Serializable {
     @Field(store = Store.YES, analyze = Analyze.NO)
     private String category;
 
+//    @Field(store = Store.YES, analyze = Analyze.NO)
+//    @FieldBridge(impl = FactsBridge.class)
+//    private Map<String, Object> facts;
+
     private Event event;
 
     public IspnEvent() {
@@ -96,6 +100,7 @@ public class IspnEvent implements Serializable {
         this.triggerId = event.getTrigger() != null ? event.getTrigger().getId() : null;
         this.ctime = event.getCtime();
         this.category = event.getCategory();
+//        this.facts = event.getFacts();
     }
 
     public String getEventType() {
@@ -188,6 +193,14 @@ public class IspnEvent implements Serializable {
     public void setCategory(String category) {
         this.category = category;
     }
+
+//    public Map<String, Object> getFacts() {
+//        return facts;
+//    }
+//
+//    public void setFacts(Map<String, Object> facts) {
+//        this.facts = facts;
+//    }
 
     @Override
     public boolean equals(Object o) {

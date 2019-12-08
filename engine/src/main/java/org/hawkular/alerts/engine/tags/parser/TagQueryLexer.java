@@ -1,4 +1,4 @@
-// Generated from org/hawkular/alerts/engine/tags/parser/TagQuery.g4 by ANTLR 4.6
+// Generated from org/hawkular/alerts/engine/tags/parser/TagQuery.g4 by ANTLR 4.7.2
 package org.hawkular.alerts.engine.tags.parser;
 
 /*
@@ -29,7 +29,7 @@ import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class TagQueryLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.6", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.7.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -37,24 +37,37 @@ public class TagQueryLexer extends Lexer {
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, OR=6, AND=7, NOT=8, EQUAL=9, NOTEQUAL=10, 
 		IN=11, SIMPLETEXT=12, COMPLEXTEXT=13, WS=14;
+	public static String[] channelNames = {
+		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
+	};
+
 	public static String[] modeNames = {
 		"DEFAULT_MODE"
 	};
 
-	public static final String[] ruleNames = {
-		"T__0", "T__1", "T__2", "T__3", "T__4", "OR", "AND", "NOT", "EQUAL", "NOTEQUAL", 
-		"IN", "SIMPLETEXT", "COMPLEXTEXT", "WS", "ESC", "UNICODE", "HEX", "A", 
-		"B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", 
-		"P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "NEG_OP"
-	};
+	private static String[] makeRuleNames() {
+		return new String[] {
+			"T__0", "T__1", "T__2", "T__3", "T__4", "OR", "AND", "NOT", "EQUAL", 
+			"NOTEQUAL", "IN", "SIMPLETEXT", "COMPLEXTEXT", "WS", "ESC", "UNICODE", 
+			"HEX", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
+			"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "NEG_OP"
+		};
+	}
+	public static final String[] ruleNames = makeRuleNames();
 
-	private static final String[] _LITERAL_NAMES = {
-		null, "'('", "')'", "'['", "','", "']'", null, null, null, "'='", "'!='"
-	};
-	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, null, "OR", "AND", "NOT", "EQUAL", "NOTEQUAL", 
-		"IN", "SIMPLETEXT", "COMPLEXTEXT", "WS"
-	};
+	private static String[] makeLiteralNames() {
+		return new String[] {
+			null, "'('", "')'", "'['", "','", "']'", null, null, null, "'='", "'!='"
+		};
+	}
+	private static final String[] _LITERAL_NAMES = makeLiteralNames();
+	private static String[] makeSymbolicNames() {
+		return new String[] {
+			null, null, null, null, null, null, "OR", "AND", "NOT", "EQUAL", "NOTEQUAL", 
+			"IN", "SIMPLETEXT", "COMPLEXTEXT", "WS"
+		};
+	}
+	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
@@ -103,6 +116,8 @@ public class TagQueryLexer extends Lexer {
 	@Override
 	public String getSerializedATN() { return _serializedATN; }
 
+	public String[] getChannelNames() { return channelNames; }
+
 	@Override
 	public String[] getModeNames() { return modeNames; }
 
@@ -110,7 +125,7 @@ public class TagQueryLexer extends Lexer {
 	public ATN getATN() { return _ATN; }
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\2\20\u00d4\b\1\4\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2\20\u00d4\b\1\4\2"+
 		"\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4"+
 		"\13\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22"+
 		"\t\22\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31"+
@@ -131,11 +146,11 @@ public class TagQueryLexer extends Lexer {
 		"pttvv\5\2\62;CHch\4\2CCcc\4\2DDdd\4\2EEee\4\2FFff\4\2GGgg\4\2HHhh\4\2"+
 		"IIii\4\2JJjj\4\2KKkk\4\2LLll\4\2MMmm\4\2NNnn\4\2OOoo\4\2PPpp\4\2QQqq\4"+
 		"\2RRrr\4\2SSss\4\2TTtt\4\2UUuu\4\2VVvv\4\2WWww\4\2XXxx\4\2YYyy\4\2ZZz"+
-		"z\4\2[[{{\4\2\\\\||\u00bb\2\3\3\2\2\2\2\5\3\2\2\2\2\7\3\2\2\2\2\t\3\2"+
-		"\2\2\2\13\3\2\2\2\2\r\3\2\2\2\2\17\3\2\2\2\2\21\3\2\2\2\2\23\3\2\2\2\2"+
-		"\25\3\2\2\2\2\27\3\2\2\2\2\31\3\2\2\2\2\33\3\2\2\2\2\35\3\2\2\2\3[\3\2"+
-		"\2\2\5]\3\2\2\2\7_\3\2\2\2\ta\3\2\2\2\13c\3\2\2\2\re\3\2\2\2\17h\3\2\2"+
-		"\2\21l\3\2\2\2\23p\3\2\2\2\25r\3\2\2\2\27u\3\2\2\2\31x\3\2\2\2\33\177"+
+		"z\4\2[[{{\4\2\\\\||\2\u00bb\2\3\3\2\2\2\2\5\3\2\2\2\2\7\3\2\2\2\2\t\3"+
+		"\2\2\2\2\13\3\2\2\2\2\r\3\2\2\2\2\17\3\2\2\2\2\21\3\2\2\2\2\23\3\2\2\2"+
+		"\2\25\3\2\2\2\2\27\3\2\2\2\2\31\3\2\2\2\2\33\3\2\2\2\2\35\3\2\2\2\3[\3"+
+		"\2\2\2\5]\3\2\2\2\7_\3\2\2\2\ta\3\2\2\2\13c\3\2\2\2\re\3\2\2\2\17h\3\2"+
+		"\2\2\21l\3\2\2\2\23p\3\2\2\2\25r\3\2\2\2\27u\3\2\2\2\31x\3\2\2\2\33\177"+
 		"\3\2\2\2\35\u008a\3\2\2\2\37\u0090\3\2\2\2!\u0096\3\2\2\2#\u009c\3\2\2"+
 		"\2%\u009e\3\2\2\2\'\u00a0\3\2\2\2)\u00a2\3\2\2\2+\u00a4\3\2\2\2-\u00a6"+
 		"\3\2\2\2/\u00a8\3\2\2\2\61\u00aa\3\2\2\2\63\u00ac\3\2\2\2\65\u00ae\3\2"+
