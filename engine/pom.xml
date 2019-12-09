@@ -46,18 +46,6 @@
       <version>${project.version}</version>
     </dependency>
 
-<!--    <dependency>-->
-<!--      <groupId>org.hawkular.alerts</groupId>-->
-<!--      <artifactId>hawkular-alerts-events-aggregation</artifactId>-->
-<!--      <version>${project.version}</version>-->
-<!--    </dependency>-->
-
-<!--    <dependency>-->
-<!--      <groupId>org.hawkular.alerts</groupId>-->
-<!--      <artifactId>hawkular-alerts-filter-api</artifactId>-->
-<!--      <version>${project.version}</version>-->
-<!--    </dependency>-->
-
     <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-api</artifactId>
@@ -91,6 +79,12 @@
     </dependency>
 
     <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${version.com.google.guava}</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.antlr</groupId>
       <artifactId>antlr4-runtime</artifactId>
       <version>${version.org.antlr}</version>
@@ -118,13 +112,13 @@
     <dependency>
       <groupId>org.infinispan</groupId>
       <artifactId>infinispan-core</artifactId>
-      <version>${version.org.infinispan.wildfly}</version>
+      <version>${version.org.infinispan}</version>
     </dependency>
 
     <dependency>
       <groupId>org.infinispan</groupId>
       <artifactId>infinispan-query</artifactId>
-      <version>${version.org.infinispan.wildfly}</version>
+      <version>${version.org.infinispan}</version>
       <exclusions>
         <exclusion>
           <groupId>org.hibernate</groupId>
@@ -132,14 +126,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-
-    <!--
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-search-engine</artifactId>
-      <version>${version.org.hibernate}</version>
-    </dependency>
-    -->
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
