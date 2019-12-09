@@ -240,7 +240,7 @@ public class DroolsRulesEngineImpl implements RulesEngine {
             Event e = i.next();
             if (!e.same(previousEvent)) {
                 previousEvent = e;
-                System.out.println("Inserting event: " + e);
+//                System.out.println("Inserting event: " + e);
                 kSession.insert(e);
 
             } else {

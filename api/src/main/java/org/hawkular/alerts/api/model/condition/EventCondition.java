@@ -191,7 +191,6 @@ public class EventCondition extends Condition {
         this.dataId = dataId;
         this.expression = expression;
         updateDisplayString();
-        System.out.println(toString());
     }
 
     public EventCondition(EventCondition condition) {
@@ -200,7 +199,6 @@ public class EventCondition extends Condition {
         this.dataId = condition.getDataId();
         this.expression = condition.getExpression();
         this.expr = condition.getExpr();
-        System.out.println(toString());
     }
 
     public void setDataId(String dataId) {
@@ -244,7 +242,6 @@ public class EventCondition extends Condition {
         }
         expressions.add(cleanComma.matcher(expression.substring(j).trim()).replaceAll(","));
         for (String expression : expressions) {
-            System.out.println("Matching " + expression);
             if (!processExpression(expression, value)) {
                 return false;
             }

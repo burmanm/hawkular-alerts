@@ -248,8 +248,6 @@ public class Trigger implements Serializable {
 
         this.mode = trigger.getMode() != null ? trigger.getMode() : Mode.FIRING;
         this.match = trigger.getMode() == Mode.FIRING ? trigger.getFiringMatch() : trigger.getAutoResolveMatch();
-
-        System.out.println(toString());
     }
 
     public Trigger(String tenantId, String id, String name, Map<String, String> context, Map<String, String> tags) {
@@ -282,8 +280,6 @@ public class Trigger implements Serializable {
 
         this.match = Match.ALL;
         this.mode = Mode.FIRING;
-
-        System.out.println(toString());
     }
 
     public static String generateId() {

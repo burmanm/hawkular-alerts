@@ -53,7 +53,6 @@ public class EventConditionEval extends ConditionEval {
 
     public EventConditionEval(EventCondition condition, Event value) {
         super(Type.EVENT, condition.match(value), value.getCtime(), value.getContext());
-        System.out.println("EventConditionEval: " + toString());
         this.condition = condition;
         this.value = value;
     }

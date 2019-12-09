@@ -69,7 +69,6 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <version.com.google.guava>19.0</version.com.google.guava>
     <version.com.squareup.okhttp3>3.4.2</version.com.squareup.okhttp3>
     <version.junit>4.12</version.junit>
     <version.log4j>1.2.17</version.log4j>
@@ -345,7 +344,7 @@
       </properties>
       <modules>
         <module>api</module>
-        <module>actions</module>
+<!--        <module>actions</module>-->
         <module>commons</module>
         <module>engine</module>
 <!--        <module>engine-extensions</module>-->
@@ -364,7 +363,7 @@
       </properties>
       <modules>
         <module>api</module>
-        <module>actions</module>
+<!--        <module>actions</module>-->
         <module>commons</module>
         <module>engine</module>
 <!--        <module>engine-extensions</module>-->
