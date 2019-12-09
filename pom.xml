@@ -23,7 +23,7 @@
 
   <groupId>org.hawkular.alerts</groupId>
   <artifactId>hawkular-alerts</artifactId>
-  <version>2.0.0.Final-SNAPSHOT</version>
+  <version>2.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
 
@@ -344,6 +344,7 @@
         <module>api</module>
         <module>commons</module>
         <module>engine</module>
+        <module>quarkus</module>
 <!--        <module>itests</module>-->
       </modules>
     </profile>
@@ -359,6 +360,7 @@
         <module>api</module>
         <module>commons</module>
         <module>engine</module>
+        <module>quarkus</module>
 <!--        <module>itests</module>-->
       </modules>
     </profile>
