@@ -40,7 +40,7 @@
     <local-cache name="backend">
       <transaction mode="BATCH"/>
       <persistence>
-        <file-store preload="true" fetch-state="true" read-only="false" purge="false" path="alerting">
+        <file-store preload="true" fetch-state="true" read-only="false" purge="false" path="${hawkular.data}/alerting">
           <write-behind thread-pool-size="5" modification-queue-size="10000" />
         </file-store>
       </persistence>
@@ -76,7 +76,7 @@
     <local-cache name="LuceneIndexesMetadata_custom">
       <transaction mode="NON_XA" />
       <persistence passivation="false">
-        <file-store preload="true" fetch-state="true" read-only="false" purge="false" path="alerting">
+        <file-store preload="true" fetch-state="true" read-only="false" purge="false" path="${hawkular.data}/alerting">
           <write-behind thread-pool-size="5" />
         </file-store>
       </persistence>
@@ -85,7 +85,7 @@
     <local-cache name="LuceneIndexesData_custom">
       <transaction mode="NON_XA" />
       <persistence passivation="false">
-        <file-store preload="true" fetch-state="true" read-only="false" purge="false" path="alerting">
+        <file-store preload="true" fetch-state="true" read-only="false" purge="false" path="${hawkular.data}/alerting">
           <write-behind thread-pool-size="5" />
         </file-store>
       </persistence>
@@ -94,7 +94,7 @@
     <local-cache name="LuceneIndexesLocking_custom">
       <transaction mode="NON_XA" />
       <persistence passivation="false">
-        <file-store preload="true" fetch-state="true" read-only="false" purge="false" path="alerting">
+        <file-store preload="true" fetch-state="true" read-only="false" purge="false" path="${hawkular.data}/alerting">
           <write-behind thread-pool-size="5" />
         </file-store>
       </persistence>

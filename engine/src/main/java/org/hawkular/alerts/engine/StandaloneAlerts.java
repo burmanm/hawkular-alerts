@@ -44,6 +44,7 @@ import java.util.concurrent.ThreadFactory;
  *
  * @author Lucas Ponce
  */
+@Deprecated // Used only for old tests that haven't been ported yet
 public class StandaloneAlerts {
     private static final MsgLogger log = MsgLogging.getMsgLogger(StandaloneAlerts.class);
     private static final String ISPN_BACKEND_REINDEX = "hawkular-alerts.backend-reindex";

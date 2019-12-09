@@ -344,6 +344,7 @@
         <module>api</module>
         <module>commons</module>
         <module>engine</module>
+<!--        <module>itests</module>-->
       </modules>
     </profile>
 
@@ -358,6 +359,7 @@
         <module>api</module>
         <module>commons</module>
         <module>engine</module>
+<!--        <module>itests</module>-->
       </modules>
     </profile>
 
