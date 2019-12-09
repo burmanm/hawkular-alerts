@@ -34,11 +34,11 @@
 
   <dependencies>
 
-    <dependency>
-      <groupId>org.hawkular.commons</groupId>
-      <artifactId>hawkular-commons-utils</artifactId>
-      <version>${version.org.hawkular.commons}</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.hawkular.commons</groupId>-->
+<!--      <artifactId>hawkular-commons-utils</artifactId>-->
+<!--      <version>${version.org.hawkular.commons}</version>-->
+<!--    </dependency>-->
 
     <dependency>
       <groupId>org.infinispan</groupId>

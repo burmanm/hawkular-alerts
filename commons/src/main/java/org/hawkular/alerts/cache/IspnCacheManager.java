@@ -16,16 +16,13 @@
  */
 package org.hawkular.alerts.cache;
 
+import org.infinispan.manager.DefaultCacheManager;
+import org.infinispan.manager.EmbeddedCacheManager;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.hawkular.commons.log.MsgLogger;
-import org.hawkular.commons.log.MsgLogging;
-import org.hawkular.commons.properties.HawkularProperties;
-import org.infinispan.manager.DefaultCacheManager;
-import org.infinispan.manager.EmbeddedCacheManager;
 
 /**
  * Load the DefaultCacheManager from infinispan
@@ -34,7 +31,7 @@ import org.infinispan.manager.EmbeddedCacheManager;
  * @author Lucas Ponce
  */
 public class IspnCacheManager {
-    private static final MsgLogger log = MsgLogging.getMsgLogger(IspnCacheManager.class);
+//    private static final MsgLogger log = MsgLogging.getMsgLogger(IspnCacheManager.class);
     private static final String CONFIG_PATH = "hawkular.configuration";
     private static final String ISPN_CONFIG_DISTRIBUTED = "ispn-alerting-distributed.xml";
     private static final String ISPN_CONFIG_LOCAL = "ispn-alerting-local.xml";
@@ -66,8 +63,9 @@ public class IspnCacheManager {
     private static synchronized void init() {
         if (cacheManager == null) {
             try {
-                distributed = Boolean.valueOf(HawkularProperties.getProperty(ALERTS_DISTRIBUTED, ALERTS_DISTRIBUTED_ENV,
-                        ALERTS_DISTRIBUTED_DEFAULT));
+                distributed = false;
+//                distributed = Boolean.valueOf(HawkularProperties.getProperty(ALERTS_DISTRIBUTED, ALERTS_DISTRIBUTED_ENV,
+//                        ALERTS_DISTRIBUTED_DEFAULT));
                 String configPath = System.getProperty(CONFIG_PATH);
                 InputStream is = null;
                 if (configPath != null) {
@@ -81,7 +79,8 @@ public class IspnCacheManager {
                 }
                 cacheManager = new DefaultCacheManager(is);
             } catch (IOException e) {
-                log.error(e);
+                e.printStackTrace();
+//                log.error(e);
             }
         }
     }
