@@ -16,17 +16,11 @@
  */
 package org.hawkular.alerts.engine.impl;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.TreeSet;
-import java.util.function.Predicate;
-
 import org.drools.core.event.DebugAgendaEventListener;
 import org.drools.core.event.DebugRuleRuntimeEventListener;
 import org.hawkular.alerts.api.model.data.Data;
 import org.hawkular.alerts.api.model.event.Event;
 import org.hawkular.alerts.engine.service.RulesEngine;
-import org.hawkular.alerts.extensions.CepEngineImpl;
 import org.hawkular.commons.log.MsgLogger;
 import org.hawkular.commons.log.MsgLogging;
 import org.hawkular.commons.properties.HawkularProperties;
@@ -35,6 +29,11 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.ObjectFilter;
 import org.kie.api.runtime.rule.FactHandle;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.TreeSet;
+import java.util.function.Predicate;
 
 /**
  * An implementation of RulesEngine based on drools framework.
@@ -168,21 +167,18 @@ public class DroolsRulesEngineImpl implements RulesEngine {
             batchData();
             batchEvents();
 
-//            if (log.isTraceEnabled()) {
-                log.infof("Firing cycle [%s] - with these facts: ", fireCycle);
+            if (log.isTraceEnabled()) {
+                log.tracef("Firing cycle [%s] - with these facts: ", fireCycle);
                 for (FactHandle fact : kSession.getFactHandles()) {
                     Object o = kSession.getObject(fact);
-                    log.infof("Fact: %s", o);
+                    log.tracef("Fact: %s", o);
                 }
-//            }
+            }
 
             for (Object object : kSession.getObjects()) {
                 log.infof("Object: %s", object);
             }
 
-
-            kSession.addEventListener(new CepEngineImpl.CepRuleRuntimeEventListener());
-                kSession.addEventListener(new CepEngineImpl.CepAgendaEventListener());
             kSession.fireAllRules();
             fireCycle++;
         }
@@ -240,7 +236,6 @@ public class DroolsRulesEngineImpl implements RulesEngine {
             Event e = i.next();
             if (!e.same(previousEvent)) {
                 previousEvent = e;
-//                System.out.println("Inserting event: " + e);
                 kSession.insert(e);
 
             } else {

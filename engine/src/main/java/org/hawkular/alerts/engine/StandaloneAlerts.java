@@ -16,10 +16,6 @@
  */
 package org.hawkular.alerts.engine;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-
 import org.hawkular.alerts.api.services.ActionsService;
 import org.hawkular.alerts.api.services.AlertsService;
 import org.hawkular.alerts.api.services.DefinitionsService;
@@ -27,20 +23,10 @@ import org.hawkular.alerts.api.services.StatusService;
 import org.hawkular.alerts.cache.IspnCacheManager;
 import org.hawkular.alerts.engine.cache.ActionsCacheManager;
 import org.hawkular.alerts.engine.cache.PublishCacheManager;
-import org.hawkular.alerts.engine.impl.AlertsContext;
-import org.hawkular.alerts.engine.impl.AlertsEngineImpl;
-import org.hawkular.alerts.engine.impl.DataDrivenGroupCacheManager;
-import org.hawkular.alerts.engine.impl.DroolsRulesEngineImpl;
-import org.hawkular.alerts.engine.impl.ExtensionsServiceImpl;
-import org.hawkular.alerts.engine.impl.IncomingDataManagerImpl;
-import org.hawkular.alerts.engine.impl.PartitionManagerImpl;
-import org.hawkular.alerts.engine.impl.PropertiesServiceImpl;
-import org.hawkular.alerts.engine.impl.StatusServiceImpl;
+import org.hawkular.alerts.engine.impl.*;
 import org.hawkular.alerts.engine.impl.ispn.IspnActionsServiceImpl;
 import org.hawkular.alerts.engine.impl.ispn.IspnAlertsServiceImpl;
 import org.hawkular.alerts.engine.impl.ispn.IspnDefinitionsServiceImpl;
-import org.hawkular.alerts.extensions.CepEngineImpl;
-import org.hawkular.alerts.extensions.EventsAggregationExtension;
 import org.hawkular.alerts.filter.CacheClient;
 import org.hawkular.commons.log.MsgLogger;
 import org.hawkular.commons.log.MsgLogging;
@@ -48,6 +34,10 @@ import org.hawkular.commons.properties.HawkularProperties;
 import org.infinispan.manager.EmbeddedCacheManager;
 import org.infinispan.query.Search;
 import org.infinispan.query.SearchManager;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 /**
  * Factory helper for standalone use cases.
@@ -70,11 +60,9 @@ public class StandaloneAlerts {
     private AlertsContext alertsContext;
     private AlertsEngineImpl engine;
     private CacheClient dataIdCache;
-    private CepEngineImpl cepEngineImpl;
     private DataDrivenGroupCacheManager dataDrivenGroupCacheManager;
     private DroolsRulesEngineImpl rules;
     private EmbeddedCacheManager cacheManager;
-    private EventsAggregationExtension eventsAggregationExtension;
     private ExtensionsServiceImpl extensions;
     private IncomingDataManagerImpl incoming;
     private IspnActionsServiceImpl ispnActions;
@@ -106,8 +94,6 @@ public class StandaloneAlerts {
         incoming = new IncomingDataManagerImpl();
         actionsCacheManager = new ActionsCacheManager();
         publishCacheManager = new PublishCacheManager();
-        cepEngineImpl = new CepEngineImpl();
-        eventsAggregationExtension = new EventsAggregationExtension();
 
         log.info("Hawkular Alerting uses Infinispan backend");
         ispnReindex = HawkularProperties.getProperty(ISPN_BACKEND_REINDEX, ISPN_BACKEND_REINDEX_DEFAULT).equals("true");
@@ -178,15 +164,6 @@ public class StandaloneAlerts {
 
         status.setPartitionManager(partitionManager);
 
-        cepEngineImpl.setAlertsService(ispnAlerts);
-        cepEngineImpl.setExecutor(executor);
-
-        eventsAggregationExtension.setCep(cepEngineImpl);
-        eventsAggregationExtension.setDefinitions(ispnDefinitions);
-        eventsAggregationExtension.setExtensions(extensions);
-        eventsAggregationExtension.setProperties(properties);
-        eventsAggregationExtension.setExecutor(executor);
-
         // Initialization needs order
 
         ispnAlerts.init();
@@ -200,7 +177,6 @@ public class StandaloneAlerts {
         publishCacheManager.init();
         extensions.init();
         engine.initServices();
-        eventsAggregationExtension.init();
     }
 
     private static synchronized void init() {
