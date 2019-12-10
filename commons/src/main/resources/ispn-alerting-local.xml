@@ -36,6 +36,8 @@
       <transaction mode="BATCH"/>
     </local-cache>
 
+    <serialization marshaller="org.infinispan.jboss.marshalling.core.JBossUserMarshaller"/>
+
     <!-- Backend for definitions, actions history, events and alerts -->
     <local-cache name="backend">
       <transaction mode="BATCH"/>

@@ -111,6 +111,12 @@
 
     <dependency>
       <groupId>org.infinispan</groupId>
+      <artifactId>infinispan-jboss-marshalling</artifactId>
+      <version>${version.org.infinispan}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.infinispan</groupId>
       <artifactId>infinispan-core</artifactId>
       <version>${version.org.infinispan}</version>
     </dependency>
